@@ -2,7 +2,7 @@
 
 
 
-# 题目描述
+## 题目描述
 
 
 
@@ -30,7 +30,7 @@
 
 
 
-# 方法一：暴力解法
+## 方法一：暴力解法
 
 
 
@@ -40,7 +40,7 @@
 
 
 
-## 源代码：
+**源代码：**
 
 ```cpp
 int removeElement(vector<int>& nums, int val) {
@@ -61,7 +61,7 @@ int removeElement(vector<int>& nums, int val) {
 }
 ```
 
-> 注意点：
+> **注意点：**
 >
 > 1. 当使用`j+1`时，索引会越界，因此使用`j = i+1`以及`nums[j-1]`
 > 2. 为什么要`i--`?
@@ -70,7 +70,7 @@ int removeElement(vector<int>& nums, int val) {
 
 
 
-# 方法二：双指针（左右指针）
+## 方法二：双指针（左右指针）
 
 
 
@@ -80,7 +80,7 @@ int removeElement(vector<int>& nums, int val) {
 
 
 
-## **源代码：**
+ **源代码：**
 
 ```c++
 int removeElement(vector<int>& nums, int val) {
@@ -110,23 +110,21 @@ int removeElement(vector<int>& nums, int val) {
 
 
 
-# 方法二：双指针（左右指针）（修正）
+## 方法二：双指针（左右指针）（修正）
 
 
 
-## 思想
+- **思路：**
+
+  - 外层循环每次将左指针和右指针放到对应的位置，最后将他们交换
+
+
+  - 注意边界情况以及数组越界
 
 
 
-- 外层循环每次将左指针和右指针放到对应的位置，最后将他们交换
 
-- 注意边界情况以及数组越界
-
-
-
-## 源代码
-
-
+**源代码：**
 
 ```cpp
 int removeElement(vector<int>& nums, int val) {
@@ -159,19 +157,20 @@ int removeElement(vector<int>& nums, int val) {
 
 
 
-## 思想
+- **思路：**
+
+  - 使用两个指针，**创建一个新的数组**覆盖原数组
+    - 快指针找新数组的元素
+    - 慢指针找新数组中新元素的位置
+
+  - 快指针每次循环都前进，但慢指针只有在快指针指向的值不为目标值时才前进
+
+  - 慢指针的值即为新数组的大小
 
 
 
-- 使用两个指针，**创建一个新的数组**覆盖原数组
-  - 快指针找新数组的元素
-  - 慢指针找新数组中新元素的位置
-- 快指针每次循环都前进，但慢指针只有在快指针指向的值不为目标值时才前进
-- 慢指针的值即为新数组的大小
 
-
-
-## 源代码：
+**源代码：**
 
 ```cpp
 int removeElement(vector<int>& nums, int val) {

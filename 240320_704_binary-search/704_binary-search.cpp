@@ -28,7 +28,7 @@ public:
 
     int search_2(vector<int>& nums, int target) {
         // 方法二，左闭右闭区间
-        vector<int>::size_type lef = 0, rig = nums.size();
+        vector<int>::size_type lef = 0, rig = nums.size() - 1;
 
         while(lef < rig) {
             // 对于左闭右闭区间，right索引有意义，因此可以等于left
