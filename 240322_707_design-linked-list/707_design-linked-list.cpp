@@ -125,15 +125,9 @@ public:
             cur = cur->next;
             // i是cur当前所在索引
         }
-        // 也可以直接使用index移动cur
-        // 但我觉得没有使用i清晰
-        // while(index--) {
-        //     cur = cur->next;
-        // }
         
         delete dummy;
         return cur->val;
-
     }
     
     void addAtHead(int val) {
@@ -190,10 +184,15 @@ public:
         }
 
         Node *dummy = new Node(-1, head);
-        Node *cur = dummy; // 是dummy还是dummy->next取决于最终操作能对哪个执行
+        // 是dummy还是dummy->next取决于最终操作能对哪个执行
+        Node *cur = dummy; 
         for(int i = 0; i < index; i++) {
             cur = cur->next;
         }
+        // while(index--) {
+        //     cur = cur->next;
+        // }
+
         // 需要删除的节点是cur->next
         Node *tmp = cur->next->next;
         delete cur->next;
@@ -203,14 +202,6 @@ public:
         head = dummy->next;
         delete dummy;
     }
-
-    void printList() {
-        Node *cur = head;
-        while(cur != nullptr) {
-            std::cout << cur->val << '\n';
-            cur = cur->next;
-        }
-    }
 };
 
 int main() {
@@ -218,7 +209,6 @@ int main() {
     ls.addAtHead(1);
     ls.addAtTail(3);
     ls.addAtIndex(1, 2);
-    ls.printList();
     std::cout << ls.get(1);
     ls.deleteAtIndex(1);
     std::cout << ls.get(1);
