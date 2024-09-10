@@ -1,3 +1,10 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <numeric>
+
+using namespace std;
+
 // 方法一
 // 动态规划
 
@@ -35,13 +42,13 @@ public:
 // 方法二
 // 一维数组 动态规划
 
-class Solution {
+class Solution2 {
 public:
     int findTargetSumWays(vector<int>& nums, int target) {
         // 将加减问题 转换为 挑几个数使其和为 (sum+target)/2的问题
         int sum = accumulate(nums.begin(), nums.end(), 0);
-        if (abs(target) > sum) return false;
-        if ((target+sum) & 1) return false;
+        if (abs(target) > sum) return 0;
+        if ((target+sum) & 1) return 0;
         int x = (target+sum) / 2;
 
         // sum + target = 2*x
@@ -63,3 +70,49 @@ public:
     }
 };
 
+// 方法三 记忆化回溯
+// 一部分用例无法跑出
+class Solution {
+// 为什么一定需要记忆两个状态（idx和x）
+// 仅 idx 相同时，可能对应不同的 x
+// 仅 x 相同时，可能对应不同的 idx
+public:
+    int dfs(vector<int>& nums, int x, int idx, unordered_map<string, int>& memo) {
+        if (idx == 0 && nums[idx] == x) {
+            if (nums[idx] == 0) return 2;
+            return 1;
+        }
+        if (idx == nums.size()) return false;
+        if (x < 0) return false;
+        if (x == 0) return 1;
+        auto itr = memo.find(to_string(idx) + "-" + to_string(x));
+        if (itr != memo.end()) return itr->second;
+        auto tmp = memo[to_string(idx) + "-" + to_string(x)] = dfs(nums, x - nums[idx], idx + 1, memo) + dfs(nums, x, idx + 1, memo);
+        return tmp;
+    }
+
+    int findTargetSumWays(vector<int>& nums, int target) {
+        // 将加减问题 转换为 挑几个数使其和为 (sum+target)/2的问题
+        // 记忆化回溯
+        int sum = accumulate(nums.begin(), nums.end(), 0);
+        if (abs(target) > sum) return 0;
+        if ((target+sum) & 1) return 0;
+        int x = (target+sum) / 2;
+        // memo["idx-x"] idx 到 nums.size()-1 数字，能够组成 x 的组合数
+        unordered_map<string, int> memo;
+
+        int result = dfs(nums, x, 0, memo);
+
+        for (auto& p : memo) {
+            cout << p.first << ' ' << p.second << ' ';
+        }
+
+        return result;
+    }
+};
+
+int main() {
+    Solution2 s2;
+    vector<int> nums{ 1, 1, 1, 1, 1 };
+    cout << s2.findTargetSumWays(nums, 1);
+}
